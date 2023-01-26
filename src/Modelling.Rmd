@@ -1,0 +1,45 @@
+---
+title: "modelling"
+author: "Koen Raijer"
+date: "2023-01-25"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library("tidyverse")
+library("timetk")
+library("readxl")
+library("zoo")
+library("lubridate")
+library("caret")
+```
+
+```{r}
+df <- read.csv("data.csv", stringsAsFactors = F)
+table(df$stress)
+df <- df %>% mutate(label = ifelse(stress == 0, F, T))
+
+# Remove columns
+df <- df %>% select(-c("WINDOW", "start_time", "end_time", "src", "stress"))
+
+view(df)
+```
+
+## Data partitioning
+
+```{r}
+set.seed(250123)
+
+trn_index <- createDataPartition(y = df$label, p = 0.70, list = F)
+
+train <- df[trn_index, ]
+test <- df[-trn_index, ]
+```
+
+## K-Nearest Neighbors & Cross-validation
+
+```{r}
+knn <- train(label )
+```

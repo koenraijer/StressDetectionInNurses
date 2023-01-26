@@ -1,0 +1,103 @@
+---
+title: "modelling"
+author: "Koen Raijer"
+date: "2023-01-25"
+output: pdf_document
+---
+
+```{r}
+## installing the 'caret' package, and some of the packages it makes use of
+install.packages("caret")
+install.packages("e1071")
+install.packages("MLmetrics")
+install.packages("mlbench")
+install.packages("ModelMetrics")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library("timetk")
+library("readxl")
+library("zoo")
+library("lubridate")
+library("caret")
+library("tidyverse")
+```
+
+## Minor pre-processing
+
+```{r}
+df <- read.csv("data.csv", stringsAsFactors = F)
+table(df$stress)
+df <- df %>% mutate(label = ifelse(stress == 0, 0, 1))
+df <- df %>% mutate(label = as.factor(as.character(label)))
+
+class(df$label)
+table(df$label)
+# Remove columns
+df <- df %>% select(-c("WINDOW", "start_time", "end_time", "src", "stress"))
+view(df)
+```
+
+## Data partitioning
+
+```{r}
+set.seed(250123)
+
+trn_index <- createDataPartition(y = df$label, p = 0.70, list = F)
+
+train <- df[trn_index, ]
+test <- df[-trn_index, ]
+```
+
+## K-Nearest Neighbors
+
+```{r}
+knn <- train(label ~ ., method = "knn", data = train, trControl = trainControl(method = "cv", number = 10))
+
+knn
+```
+
+```{r}
+##  writing a custom plot function for knn models
+plot_knn_results <- function(fit_knn) {
+  ggplot(fit_knn$results, aes(x = k, y = Accuracy)) +
+    geom_bar(stat = "identity") +
+    scale_x_discrete("value of k", limits = fit_knn$results$k) +
+    scale_y_continuous("accuracy")
+}
+
+## creating the plot: little difference in accuracy in this case!
+plot_knn_results(knn)
+```
+
+## Logistic regression
+
+```{r}
+glm <- train(label ~ ., method = "glm", family = binomial(link = "logit"), data = train, trControl = trainControl(method = "cv", number = 10))
+
+glm
+
+# See summary of intercepts and coefficients
+summary(glm)
+```
+
+## Plots
+
+```{r}
+# Plot bar chart of averages and stress
+hr_plot <- ggplot(df, aes(x = label, y = hr_mean)) +
+  geom_bar(stat = "identity")
+  
+acc_plot <- ggplot(df, aes(x = label, y = acc_mean)) +
+  geom_bar(stat = "identity")
+
+eda_plot <- ggplot(df, aes(x = label, y = eda_mean)) +
+  geom_bar(stat = "identity")
+
+temp_plot <- ggplot(df, aes(x = label, y = temp_mean)) +
+  geom_bar(stat = "identity")
+
+hr_plot
+```

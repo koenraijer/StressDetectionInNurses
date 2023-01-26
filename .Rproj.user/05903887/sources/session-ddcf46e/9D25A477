@@ -1,0 +1,32 @@
+{
+    "id": "9D25A477",
+    "path": "~/Documents/Universiteit/Student-assistent/StressDetectionInNurses/src/Modelling.Rmd",
+    "project_path": "src/Modelling.Rmd",
+    "type": "r_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": true,
+    "created": 1674653331763.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "87,0",
+        "scrollLine": "0",
+        "rmdVisualMode": "true",
+        "rmdVisualWrapConfigured": "true",
+        "docOutlineVisible": "1",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "2142:1116.666748046875"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1674654127,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1674656413973,
+    "read_only": false,
+    "read_only_alternatives": []
+}

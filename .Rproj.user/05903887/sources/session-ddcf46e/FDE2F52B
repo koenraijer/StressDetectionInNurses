@@ -1,0 +1,28 @@
+{
+    "id": "FDE2F52B",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1674654654905.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "id": "38d01313e5424dff8ecc32cb8800706e",
+        "name": "knn",
+        "title": "knn",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Sourced4nd6hhvjzaj"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 0,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1674654654905,
+    "read_only": false,
+    "read_only_alternatives": []
+}
